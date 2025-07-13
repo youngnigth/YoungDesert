@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlockPOS – Blockchain-Powered Retail POS</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { padding-top: 70px; }
+    /* Hero */
+    .hero-pos { height: 80vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('pos-hero.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text); padding: 0 2rem; }
+    .btn-cta { display: inline-block; background: var(--accent); color: var(--dark); padding: 1rem 2rem; font-size: 1.1rem; font-weight: 700; border-radius: 50px; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s ease, background 0.3s ease; }
+    .btn-cta:hover { transform: translateY(-3px); background: var(--primary); color: var(--text); }
+    /* Gallery */
+    .gallery { padding: 4rem 2rem; text-align: center; background: var(--dark); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:1rem; }
+    .gallery-item img { width:100%; border-radius:8px; transition:transform .5s ease; }
+    .gallery-item img:hover { transform:scale(1.05); }
+    /* Features */
+    .features-pos { padding:4rem 2rem; text-align:center; }
+    .feature-grid-pos { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
+    /* Pre-Order */
+    .preorder { background: var(--light); padding:4rem 2rem; text-align:center; }
+    .preorder .preorder-container { max-width:600px; margin:0 auto; padding:2rem; background:#fff; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+    .preorder h2 { color: var(--dark); margin-bottom:1rem; }
+    .preorder p { color:var(--dark); margin-bottom:2rem; }
+    .strike-button { margin-top:1rem; }
+    /* Footer */
+    .footer { background:var(--dark); padding:2rem; text-align:center; color:var(--muted); }
+    .footer a { color:var(--primary); }
+  </style>
+  <script src="https://cdn.strike.me/v1/strike.js"></script>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <a href="#" class="logo">BlockPOS</a>
+      <button class="nav-toggle" id="nav-toggle"><span class="hamburger"></span></button>
+      <ul class="nav-list" id="nav-list">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#preorder">Pre-Order</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="hero-pos">
+    <div>
+      <h1>BlockPOS: The Future of Retail Payments</h1>
+      <p>Secure, decentralized POS software powered by blockchain. Fast, transparent, peer-to-peer.</p>
+      <a href="#preorder" class="btn-cta">Pre-Order Now</a>
+    </div>
+  </section>
+  <section class="gallery" id="gallery">
+    <h2>Screenshots & Mockups</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="screenshot1.jpg" alt="Dashboard"></div>
+      <div class="gallery-item"><img src="screenshot2.jpg" alt="Transactions"></div>
+      <div class="gallery-item"><img src="screenshot3.jpg" alt="Inventory"></div>
+      <div class="gallery-item"><img src="screenshot4.jpg" alt="Analytics"></div>
+      <div class="gallery-item"><img src="screenshot5.jpg" alt="Settings"></div>
+      <div class="gallery-item"><img src="screenshot6.jpg" alt="Mobile View"></div>
+    </div>
+  </section>
+  <section class="features-pos" id="features">
+    <h2>Key Features</h2>
+    <div class="feature-grid-pos">
+      <div class="feature-item-pos"><h3>Instant Settlement</h3><p>Receive payments in seconds.</p></div>
+      <div class="feature-item-pos"><h3>Immutable Ledger</h3><p>On-chain transparency.</p></div>
+      <div class="feature-item-pos"><h3>Global Reach</h3><p>No conversion fees.</p></div>
+      <div class="feature-item-pos"><h3>Open Source</h3><p>Auditable and secure.</p></div>
+    </div>
+  </section>
+  <section class="preorder" id="preorder">
+    <h2>Pre-Order BlockPOS</h2>
+    <div class="preorder-container">
+      <p>Secure your license now and save 20%! Limited early-bird offer.</p>
+      <!-- Strike Pay Widget -->
+      <div class="strike-button">
+        <strike-pay
+          amount="100.00"
+          currency="USD"
+          description="BlockPOS Pre-Order"
+          theme="light"
+        ></strike-pay>
+      </div>
+      <p style="margin-top:1rem; font-size:0.9rem; color:#666;">Or email <a href="mailto:sales@blockpos.io">sales@blockpos.io</a> for manual invoice</p>
+    </div>
+  </section>
+  <footer class="footer" id="contact">
+    <p>Questions? <a href="mailto:support@blockpos.io">support@blockpos.io</a></p>
+    <p>&copy; 2025 BlockPOS. All Rights Reserved.</p>
+  </footer>
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('nav-list').classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
