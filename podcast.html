@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Mi Podcast: Episodios, entrevistas y más en todas tus plataformas favoritas." />
-  <title>Mi Podcast</title>
+  <meta name="description" content="My Podcast: Episodes, interviews and more on all your favorite platforms." />
+  <title>My Podcast</title>
   <style>
     :root {
       --primary: #00a859;
@@ -19,211 +19,276 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--dark); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
-    header { background: rgba(26,26,26,0.95); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 100; display: flex; align-items: center; }
+
+    /* Header */
+    header {
+      background: rgba(26,26,26,0.95);
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .logo { color: var(--primary); font-size: 1.5rem; font-weight: bold; text-decoration: none; }
-    nav { flex: 1; }
-    .nav-list { list-style: none; display: flex; justify-content: center; gap: 1.5rem; }
-    .nav-list li a { color: var(--text); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
-    .nav-list li a:hover { color: var(--accent); }
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
-    .hamburger, .hamburger::before, .hamburger::after { width: 25px; height: 3px; background: var(--text); display: block; transition: background 0.3s; position: relative; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; }
+    .hamburger, .hamburger::before, .hamburger::after {
+      width: 25px; height: 3px; background: var(--text); display: block; position: relative; transition: background 0.3s;
+    }
     .hamburger::before, .hamburger::after { content: ''; position: absolute; left: 0; }
     .hamburger::before { top: -8px; }
     .hamburger::after  { top: 8px; }
-    main { margin-top: 4rem; flex: 1; }
-    /* Hero: Último episodio */
-    .hero { background: var(--card-bg); padding: 4rem 2rem; text-align: center; }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary); }
-    .hero p { margin-bottom: 2rem; color: var(--light); }
-    .hero iframe { width: 100%; max-width: 660px; height: 232px; border: none; }
-    /* Sección de Categorías */
+    nav { }
+    .nav-list { list-style: none; display: flex; gap: 1.5rem; }
+    .nav-list li a { color: var(--text); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
+    .nav-list li a:hover { color: var(--accent); }
+
+    /* Mobile Nav + Carousel */
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-list {
+        position: absolute;
+        top: 100%;
+        right: 1.5rem;
+        background: var(--dark);
+        flex-direction: column;
+        width: 200px;
+        padding: 1rem 0;
+        border-radius: 4px;
+        display: none;
+      }
+      .nav-list.show { display: flex; }
+      .nav-list li { margin: 0.5rem 0; text-align: center; }
+
+      .episode-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 1rem;
+      }
+      .episode-card {
+        flex: 0 0 80%;
+        scroll-snap-align: start;
+      }
+    }
+
+    main { margin-top: 5rem; flex: 1; padding: 2rem; }
+
+    /* Hero */
+    .hero { background: var(--card-bg); padding: 2rem; text-align: center; border-radius: 8px; }
+    .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .hero p { margin-bottom: 1.5rem; color: var(--muted); }
+    .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; align-items: start; }
+    .hero-grid iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+    /* Categories */
     .categories { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; }
     .categories button { background: var(--card-bg); color: var(--text); border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 600; transition: background 0.3s; }
     .categories button.active, .categories button:hover { background: var(--primary); color: var(--dark); }
-    /* Carrusel de episodios */
-    .carousel { position: relative; overflow: hidden; max-width: 1200px; margin: auto; }
-    .slides { display: flex; transition: transform 0.5s ease; }
-    .slide { min-width: 100%; box-sizing: border-box; padding: 1rem; }
-    .slide-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
-    .slide-card img { width: 100%; display: block; }
-    .slide-card .info { padding: 1rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .slide-card .info h3 { margin-bottom: 0.5rem; }
-    .slide-card .info p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
-    .slide-card .info a.btn { width: 100%; }
-    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; padding: 0.5rem; cursor: pointer; color: var(--text); font-size: 1.5rem; }
-    .prev { left: 1rem; }
-    .next { right: 1rem; }
-    /* Plataformas */
-    .platforms { padding: 4rem 2rem; text-align: center; }
+
+    /* Episodes */
+    .episode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .episode-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+    .episode-card img { width: 100%; display: block; object-fit: cover; height: 140px; }
+    .episode-info { padding: 1rem; flex: 1; display: flex; flex-direction: column; }
+    .episode-info h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .episode-info p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; flex: 1; }
+    .episode-info a.btn { text-align: center; background: var(--primary); color: var(--dark); padding: 0.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
+    .episode-info a.btn:hover { background: var(--accent); }
+
+    /* Platforms */
+    .platforms { padding: 4rem 2rem 2rem; text-align: center; }
     .platforms h2 { margin-bottom: 2rem; color: var(--primary); }
     .platform-list { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
     .platform-list a { text-decoration: none; color: var(--text); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; }
     .platform-list img { width: 60px; height: auto; margin-bottom: 0.5rem; }
-    /* Footer */
+
     footer { background: var(--footer-bg); color: var(--muted); padding: 2rem; text-align: center; }
-    @media (max-width: 768px) {
-      .nav-toggle { display: block; order: 3; }
-      nav { flex: 0 0 auto; }
-      .nav-list { display: none; position: absolute; top: 100%; right: 0; background: var(--dark); flex-direction: column; width: 200px; padding: 1rem 0; }
-      .nav-list.show { display: flex; }
-      .nav-list li { margin: 0.5rem 0; text-align: center; }
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* make logo on left, nav/toggle on right */
-}
-
-.nav-toggle {
-  margin-left: auto; /* pushes the button as far right as possible */
-}
-
-    }
   </style>
 </head>
 <body>
   <header>
-    <a href="#home" class="logo">YoungDesert</a>
-    <button class="nav-toggle" aria-label="Toggle nav" aria-controls="nav-list" aria-expanded="false">
+    <a href="#home" class="logo">YoungDesert </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-controls="nav-list" aria-expanded="false">
       <span class="hamburger"></span>
     </button>
     <nav>
       <ul id="nav-list" class="nav-list">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="#episodios">Episodios</a></li>
-        <li><a href="#plataformas">Plataformas</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#episodes">Episodes</a></li>
+        <li><a href="#platforms">Platforms</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <!-- Hero: Último episodio -->
+    <!-- Hero -->
     <section id="home" class="hero">
-      <h1>Listen Now</h1>
-      <p>Escucha ahora el episodio más reciente de nuestro podcast.</p>
-      <iframe src="https://open.spotify.com/embed/playlist/41a3mB1iLWzHhK5Im7EBN0" allow="encrypted-media"></iframe>
+      <h1>Listen to Our Latest Episode</h1>
+      <p>Available on all major platforms.</p>
+      <div class="hero-grid">
+        <iframe src="https://open.spotify.com/embed/episode/7caTFq7gfMTXFt5k8OJJpW" allow="encrypted-media"></iframe>
+        <iframe src="https://open.spotify.com/embed/show/0wxgxHWSeGqJZrOSjiV5HE" allow="encrypted-media"></iframe>
+        <iframe src="https://open.spotify.com/embed/show/0Ds5tB7EhMuZOGhM3Xfuoy" allow="encrypted-media"></iframe>
+        <iframe src="https://open.spotify.com/embed/show/1s4uoQY1C0IAnvHJE0rUMb" allow="encrypted-media"></iframe>
+      </div>
     </section>
 
-    <!-- Categorías filtros -->
+    <!-- Categories -->
     <div class="categories" id="category-buttons">
-      <button class="active" data-category="all">Todo</button>
-      <button data-category="capitulos">Capítulos</button>
-      <button data-category="entrevistas">Entrevistas</button>
+      <button class="active" data-category="all">All</button>
+      <button data-category="Chapters">Chapters</button>
+      <button data-category="Interviews">Interviews</button>
       <button data-category="money">Money</button>
     </div>
 
-    <!-- Carrusel de episodios -->
-    <section id="episodios" class="carousel">
-      <button class="carousel-btn prev" aria-label="Anterior">&#10094;</button>
-      <div class="slides" id="slides-container">
-        <!-- Slide ejemplo: repetir y ajustar data-category -->
-        <div class="slide" data-category="capitulos">
-          <div class="slide-card">
-            <img src="thumb1.jpg" alt="Episodio 1">
-            <div class="info">
-              <h3>Episodio 1: Introducción</h3>
-              <p>Conoce de qué trata nuestro podcast y nuestros invitados.</p>
-              <a href="https://open.spotify.com/episode/TU_EPISODIO_1" class="btn">Escuchar</a>
-            </div>
+    <!-- Episode cards -->
+    <section id="episodes">
+      <div class="episode-grid" id="episode-grid">
+        
+        
+        <div class="episode-card" data-category="Chapters">
+          <img src="thumb1.jpg" alt="Episode 1">
+          <div class="episode-info">
+            <h3>Episode 1: Introduction</h3>
+            <p>Learn what our podcast is about and meet our hosts.</p>
+            <a href="https://open.spotify.com/episode/TU_EPISODIO_1" class="btn" target="_blank">Listen</a>
           </div>
         </div>
-        <div class="slide" data-category="entrevistas">
-          <div class="slide-card">
-            <img src="thumb2.jpg" alt="Entrevista">
-            <div class="info">
-              <h3>Entrevista con Invitado</h3>
-              <p>Charla sobre finanzas, emprendimiento y más.</p>
-              <a href="https://open.spotify.com/episode/TU_EPISODIO_2" class="btn">Escuchar</a>
-            </div>
+
+        <div class="episode-card" data-category="Chapters">
+          <img src="thumb1.jpg" alt="Episode 1">
+          <div class="episode-info">
+            <h3>Episode 1: Introduction</h3>
+            <p>Learn what our podcast is about and meet our hosts.</p>
+            <a href="https://open.spotify.com/episode/TU_EPISODIO_1" class="btn" target="_blank">Listen</a>
           </div>
         </div>
-                <div class="slide" data-category="money">
-          <div class="slide-card">
-            <img src="" alt="Entrevista">
-            <div class="info">
-              <h3>Entrevista con Invitado</h3>
-              <p>Charla sobre finanzas, emprendimiento y más.</p>
-              <a href="https://open.spotify.com/embed/episode/4yAy1th0n63lRc20NJKM8m" class="btn">Escuchar</a>
-            </div>
+
+        <div class="episode-card" data-category="Chapters">
+          <img src="thumb1.jpg" alt="Episode 1">
+          <div class="episode-info">
+            <h3>Episode 1: Introduction</h3>
+            <p>Learn what our podcast is about and meet our hosts.</p>
+            <a href="https://open.spotify.com/episode/TU_EPISODIO_1" class="btn" target="_blank">Listen</a>
           </div>
         </div>
-        <!-- agregar más slides con las categorías respectivas -->
+
+        
+
+        <div class="episode-card" data-category="Interviews">
+          <img src="thumb2.jpg" alt="Interview">
+          <div class="episode-info">
+            <h3>Interview with Guest</h3>
+            <p>Chat about finance, entrepreneurship, and practical tips.</p>
+            <a href="https://open.spotify.com/episode/TU_EPISODIO_2" class="btn" target="_blank">Listen</a>
+          </div>
+        </div>
+
+                <div class="episode-card" data-category="Interviews">
+          <img src="thumb2.jpg" alt="Interview">
+          <div class="episode-info">
+            <h3>Interview with Guest</h3>
+            <p>Chat about finance, entrepreneurship, and practical tips.</p>
+            <a href="https://open.spotify.com/episode/TU_EPISODIO_2" class="btn" target="_blank">Listen</a>
+          </div>
+        </div>
+
+                <div class="episode-card" data-category="Interviews">
+          <img src="thumb2.jpg" alt="Interview">
+          <div class="episode-info">
+            <h3>Interview with Guest</h3>
+            <p>Chat about finance, entrepreneurship, and practical tips.</p>
+            <a href="https://open.spotify.com/episode/TU_EPISODIO_2" class="btn" target="_blank">Listen</a>
+          </div>
+        </div>
+ 
+        <div class="episode-card" data-category="money">
+          <img src="thumb3.jpg" alt="Money Talk">
+          <div class="episode-info">
+            <h3>Money Talk</h3>
+            <p>All the tips to manage your money wisely.</p>
+            <a href="https://open.spotify.com/episode/4yAy1th0n63lRc20NJKM8m" class="btn" target="_blank">Listen</a>
+          </div>
+        </div>
+
+                <div class="episode-card" data-category="money">
+          <img src="thumb3.jpg" alt="Money Talk">
+          <div class="episode-info">
+            <h3>Money Talk</h3>
+            <p>All the tips to manage your money wisely.</p>
+            <a href="https://open.spotify.com/episode/4yAy1th0n63lRc20NJKM8m" class="btn" target="_blank">Listen</a>
+          </div>
+        </div>
+
+                <div class="episode-card" data-category="money">
+          <img src="thumb3.jpg" alt="Money Talk">
+          <div class="episode-info">
+            <h3>Money Talk</h3>
+            <p>All the tips to manage your money wisely.</p>
+            <a href="https://open.spotify.com/episode/4yAy1th0n63lRc20NJKM8m" class="btn" target="_blank">Listen</a>
+          </div>
+        </div>
+
+
+        <!-- Add more cards here -->
       </div>
-      <button class="carousel-btn next" aria-label="Siguiente">&#10095;</button>
     </section>
 
-    <!-- Plataformas -->
-    <section id="plataformas" class="platforms">
-      <h2>Escúchanos en</h2>
+    <!-- Platforms -->
+    <section id="platforms" class="platforms">
+      <h2>Find us on</h2>
       <div class="platform-list">
-        <a href="https://open.spotify.com/embed/playlist/41a3mB1iLWzHhK5Im7EBN0" target="_blank">
-          <img src="spotify.png" alt="Spotify">
-          Spotify
+        <a href="https://open.spotify.com" target="_blank">
+          <img src="spotify.png" alt="Spotify">Spotify
         </a>
-        <a href="https://podcasts.apple.com/TU_SHOW" target="_blank">
-          <img src="itunes.png" alt="Apple Podcasts">
-          Apple Podcasts
+        <a href="https://podcasts.apple.com" target="_blank">
+          <img src="itunes.png" alt="Apple Podcasts">Apple Podcasts
         </a>
-        <a href="https://www.youtube.com/playlist?list=TU_PLAYLIST" target="_blank">
-          <img src="youtube.png" alt="YouTube">
-          YouTube
+        <a href="https://www.youtube.com" target="_blank">
+          <img src="youtube.png" alt="YouTube">YouTube
         </a>
-        <!-- …otras plataformas… -->
       </div>
     </section>
 
-    <!-- Contacto -->
-    <section id="contacto" style="padding:4rem 2rem; text-align:center;">
-      <h2>Contacto</h2>
-      <p>Escríbenos a <a href="mailto:info@mipodcast.com" style="color:var(--accent)">info@mipodcast.com</a></p>
+    <!-- Contact -->
+    <section id="contact" style="padding:4rem 2rem; text-align:center;">
+      <h2>Contact</h2>
+      <p>Write to us at <a href="mailto:info@mypodcast.com" style="color:var(--accent)">info@mypodcast.com</a></p>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Mi Podcast. Todos los derechos reservados.
+    &copy; 2025 My Podcast. All rights reserved.
   </footer>
 
   <script>
-    // Toggle nav mobile
+    // Mobile nav toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navList = document.getElementById('nav-list');
-    navToggle.setAttribute('aria-expanded', 'false');
     navToggle.addEventListener('click', () => {
-      const open = navList.classList.toggle('show');
-      navToggle.setAttribute('aria-expanded', open);
+      const isOpen = navList.classList.toggle('show');
+      navToggle.setAttribute('aria-expanded', isOpen);
     });
-    document.querySelectorAll('#nav-list a').forEach(a =>
-      a.addEventListener('click', () => {
-        navList.classList.remove('show');
-        navToggle.setAttribute('aria-expanded', 'false');
-      })
-    );
 
-    // Carrusel 
-    const slides = document.getElementById('slides-container');
-    const slideElems = Array.from(slides.children);
-    let index = 0;
-    document.querySelector('.next').onclick = () => {
-      index = (index + 1) % slideElems.length;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    };
-    document.querySelector('.prev').onclick = () => {
-      index = (index - 1 + slideElems.length) % slideElems.length;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    };
-
-    // Filtrado por categoría
-    const categoryButtons = document.getElementById('category-buttons');
-    categoryButtons.addEventListener('click', e => {
-      if (e.target.tagName !== 'BUTTON') return;
-      document.querySelectorAll('.categories button').forEach(btn => btn.classList.remove('active'));
-      e.target.classList.add('active');
-      const cat = e.target.dataset.category;
-      slideElems.forEach((slide, i) => {
-        slide.style.display = (cat === 'all' || slide.dataset.category === cat) ? 'block' : 'none';
+    // Category filter
+    const buttons = document.querySelectorAll('.categories button');
+    const cards = document.querySelectorAll('.episode-card');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const category = btn.getAttribute('data-category');
+        cards.forEach(card => {
+          card.style.display = (category === 'all' || card.dataset.category === category)
+            ? 'flex'
+            : 'none';
+        });
       });
-      index = 0;
-      slides.style.transform = 'translateX(0)';
     });
   </script>
 </body>
