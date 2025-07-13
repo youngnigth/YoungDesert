@@ -1,0 +1,151 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pre-Order: "Echoes of Tomorrow"</title>
+  <link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="header">
+    <nav class="nav">
+      <a href="#" class="logo">Young Desert </a>
+      <button class="nav-toggle" id="nav-toggle">
+        <span class="hamburger"></span>
+      </button>
+      <ul class="nav-list" id="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#synopsis">Synopsis</a></li>
+        <li><a href="#video">Video</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#preorder">Pre-Order</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section with Countdown -->
+  <section id="hero" class="hero fade-in">
+    <div class="hero-content">
+      <h1>Young Desert</h1>
+      <p>An unforgettable journey through time and memory.&nbsp;<strong>Pre-order now!</strong></p>
+      <div id="countdown" class="countdown"></div>
+      <a href="#preorder" class="btn">Pre-Order Today</a>
+    </div>
+  </section>
+
+  <!-- About the Author -->
+  <section id="about" class="about fade-in">
+    <h2>About the Author</h2>
+    <p>Sergio Gonzalez is a bestselling author of speculative fiction, weaving tales that blend science and human emotion.</p>
+  </section>
+
+  <!-- Synopsis Section -->
+  <section id="synopsis" class="features fade-in">
+    <h2>Book Synopsis</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h3>Time Travel Intrigue</h3>
+        <p>Follow our protagonist as they unravel mysteries across parallel timelines.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Emotional Depth</h3>
+        <p>A story that delves into loss, hope, and the bonds that define us.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Next Summer Release</h3>
+        <p>Official release: June 1, 2026. Reserve your copy today.</p>
+      </div>
+    </div>
+  </section>
+
+ <!-- Video Section -->
+  <section id="video" class="video fade-in">
+    <h2>Behind the Scenes</h2>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+     </div>
+    <!-- Mini YouTube Carousel -->
+    <div class="mini-carousel fade-in" id="mini-carousel">
+      <button class="carousel-btn prev" id="carousel-prev">&#10094;</button>
+      <div class="carousel-track-container">
+        <ul class="carousel-track" id="carousel-track">
+          <li class="carousel-item">
+            <iframe src="https://www.youtube.com/embed/mx-JVcHqyE0" frameborder="0" allowfullscreen></iframe>
+          </li>
+          <li class="carousel-item">
+            <iframe src="https://www.youtube.com/embed/mx-JVcHqyE0" frameborder="0" allowfullscreen></iframe>
+          </li>
+          <li class="carousel-item">
+            <iframe src="https://www.youtube.com/embed/mx-JVcHqyE0" frameborder="0" allowfullscreen></iframe>
+          </li>
+        </ul>
+      </div>
+      <button class="carousel-btn next" id="carousel-next">&#10095;</button>
+    </div>
+  </section>
+
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials fade-in">
+    <h2>Early Reviews</h2>
+    <div class="testimonial-grid">
+      <blockquote>
+        "A masterpiece of imagination and heart."<cite>– BookCritic</cite>
+      </blockquote>
+      <blockquote>
+        "Jane Doe delivers a breathtaking journey."<cite>– Reader123</cite>
+      </blockquote>
+      <blockquote>
+        "I couldn't put it down!"<cite>– AvidReader</cite>
+      </blockquote>
+    </div>
+  </section>
+
+    <!-- Pre-Order Section with Book Images -->
+  <section id="preorder" class="preorder fade-in">
+    <h2>Secure Your Copy</h2>
+    <p>Limited early-bird edition with exclusive author notes.</p>
+    <div class="book-images">
+      <a href="YOUR_STRIPE_PAYMENT_LINK" target="_blank">
+        <img src="images/05.jpg" alt="Echoes of Tomorrow Cover" />
+      </a>
+      <a href="YOUR_STRIPE_PAYMENT_LINK" target="_blank">
+        <img src="images/02.jpg" alt="Echoes of Tomorrow Back Cover" />
+      </a>
+      <a href="YOUR_STRIPE_PAYMENT_LINK" target="_blank">
+        <img src="images/03.jpg" alt="Echoes of Tomorrow Cover" />
+      </a>
+      <a href="YOUR_STRIPE_PAYMENT_LINK" target="_blank">
+        <img src="images/04.jpg" alt="Echoes of Tomorrow Back Cover" />
+      </a>
+    </div>
+    <a href="YOUR_STRIPE_PAYMENT_LINK" class="btn">Pre-Order Now via Stripe</a>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact fade-in">
+    <h2>Stay Updated</h2>
+    <form class="contact-form">
+      <input type="email" placeholder="Your Email" required />
+      <button type="submit" class="btn">Join Newsletter</button>
+    </form>
+  </section>
+
+  <!-- Footer with Social Share -->
+  <footer class="footer fade-in">
+    <p>&copy; 2025 Jane Doe. All rights reserved.</p>
+    <div class="social-share">
+      <span>Share:</span>
+      <button onclick="share('facebook')">Facebook</button>
+      <button onclick="share('twitter')">Twitter</button>
+      <button onclick="share('linkedin')">LinkedIn</button>
+    </div>
+  </footer>
+
+  <script src="landing.js"></script>
+</body>
+</html>
