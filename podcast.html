@@ -31,23 +31,38 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative; /* added for absolute toggle */
     }
     .logo { color: var(--primary); font-size: 1.5rem; font-weight: bold; text-decoration: none; }
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
-    .hamburger, .hamburger::before, .hamburger::after {
-      width: 25px; height: 3px; background: var(--text); display: block; position: relative; transition: background 0.3s;
-    }
-    .hamburger::before, .hamburger::after { content: ''; position: absolute; left: 0; }
-    .hamburger::before { top: -8px; }
-    .hamburger::after  { top: 8px; }
     nav { }
     .nav-list { list-style: none; display: flex; gap: 1.5rem; }
     .nav-list li a { color: var(--text); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
     .nav-list li a:hover { color: var(--accent); }
 
+    /* Hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+      width: 25px; height: 3px; background: var(--text); display: block; position: relative; transition: background 0.3s;
+    }
+    .hamburger::before,
+    .hamburger::after { content: ''; position: absolute; left: 0; }
+    .hamburger::before { top: -8px; }
+    .hamburger::after  { top: 8px; }
+
     /* Mobile Nav */
     @media (max-width: 768px) {
-      .nav-toggle { display: block; }
+      /* pin toggle to top-right */
+      .nav-toggle {
+        display: block;
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 110;
+      }
+
       .nav-list {
         position: absolute;
         top: 100%;
@@ -134,7 +149,7 @@
       <button data-category="money">Money</button>
     </div>
 
-    <!-- Episode cards -->
+     <!-- Episode cards -->
     <section id="episodes">
       <div class="episode-grid" id="episode-grid">
         
@@ -265,19 +280,30 @@
 
     // Category filter
     const buttons = document.querySelectorAll('.categories button');
-    const cards = document.querySelectorAll('.episode-card');
+    const cards   = document.querySelectorAll('.episode-card');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const category = btn.getAttribute('data-category');
+        const cat = btn.dataset.category;
         cards.forEach(card => {
-          card.style.display = (category === 'all' || card.dataset.category === category)
-            ? 'flex'
-            : 'none';
+          card.style.display = (cat === 'all' || card.dataset.category === cat) ? 'flex' : 'none';
         });
       });
     });
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
