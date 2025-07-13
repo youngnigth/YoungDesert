@@ -67,6 +67,16 @@
       .nav-list { display: none; position: absolute; top: 100%; right: 0; background: var(--dark); flex-direction: column; width: 200px; padding: 1rem 0; }
       .nav-list.show { display: flex; }
       .nav-list li { margin: 0.5rem 0; text-align: center; }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* make logo on left, nav/toggle on right */
+}
+
+.nav-toggle {
+  margin-left: auto; /* pushes the button as far right as possible */
+}
+
     }
   </style>
 </head>
