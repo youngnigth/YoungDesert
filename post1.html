@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Understanding CSS Grid | MyBlog</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Adjust for fixed header */
+    body { padding-top: 70px; }
+
+    /* Post Header Carousel */
+    .post-header {
+      position: relative;
+      height: 60vh;
+      min-height: 300px;
+      overflow: hidden;
+    }
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+    }
+    .post-header .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      text-align: center;
+      padding: 0 2rem;
+    }
+    .overlay h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .overlay .post-meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Content Body */
+    .post-body {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .post-body h2 {
+      margin-top: 2rem;
+      color: var(--primary);
+    }
+    .post-body p,
+    .post-body pre {
+      margin-bottom: 1rem;
+    }
+    .post-body code {
+      background: var(--card-bg);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* Media Section */
+    .post-media {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media(min-width: 600px) {
+      .post-media {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .post-media img,
+    .post-media iframe {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Back Link */
+    .back-link {
+      text-align: center;
+      margin: 4rem 0;
+    }
+    .back-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Nav -->
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo">MyBlog</a>
+      <button class="nav-toggle" id="nav-toggle">
+        <span class="hamburger"></span>
+      </button>
+      <ul class="nav-list" id="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Post Header Carousel -->
+  <section class="post-header">
+    <div class="carousel-slide active" style="background-image:url('images/01.jpg')"></div>
+    <div class="carousel-slide" style="background-image:url('images/02.jpg')"></div>
+    <div class="carousel-slide" style="background-image:url('images/05.jpg')"></div>
+    <div class="overlay">
+      <h1>Understanding CSS Grid</h1>
+      <div class="post-meta">By Jane Doe &bull; July 13, 2025</div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <article class="post-body">
+    <h2>Introduction</h2>
+    <p>CSS Grid is a powerful two-dimensional layout system that enables developers to create complex and responsive designs with concise code. Unlike Flexbox, which focuses on one-dimensional layouts (rows or columns), Grid handles both rows and columns simultaneously.</p>
+
+    <h2>Creating Your First Grid</h2>
+    <p>To start, define a container with <code>display: grid;</code> and specify columns:</p>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+</code></pre>
+
+    <h2>Responsive Auto-Fit</h2>
+    <p>Combine <code>auto-fit</code> with <code>minmax()</code> to make grids adapt:</p>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+</code></pre>
+    <p>This setup creates as many 200px columns as fit in the container, then wraps remaining items.</p>
+  </article>
+
+  <!-- Media Section -->
+  <section class="post-media">
+    <img src="images/07.jpg" alt="Diagram of CSS Grid layout">
+    <iframe src="https://www.youtube.com/embed/PHe0bXAIuk0" title="CSS Grid Tutorial" allowfullscreen></iframe>
+  </section>
+
+  <!-- Back to Blog -->
+  <div class="back-link">
+    <a href="blog.html">&larr; Back to Blog</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 MyBlog. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Nav Toggle
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('nav-list').classList.toggle('show');
+    });
+    // Carousel Functionality
+    const slides = document.querySelectorAll('.carousel-slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 3000);
+  </script>
+</body>
+</html>
