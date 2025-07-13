@@ -30,10 +30,10 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
     }
     .logo { color: var(--primary); font-size: 1.5rem; font-weight: bold; text-decoration: none; }
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; position: absolute; right: 1.5rem; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
     .hamburger, .hamburger::before, .hamburger::after {
       width: 25px; height: 3px; background: var(--text); display: block; position: relative; transition: background 0.3s;
     }
@@ -45,13 +45,13 @@
     .nav-list li a { color: var(--text); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
     .nav-list li a:hover { color: var(--accent); }
 
-    /* Mobile Nav + Carousel */
+    /* Mobile Nav */
     @media (max-width: 768px) {
       .nav-toggle { display: block; }
       .nav-list {
         position: absolute;
         top: 100%;
-        right: 1.5rem;
+        right: 2rem;
         background: var(--dark);
         flex-direction: column;
         width: 200px;
@@ -61,18 +61,6 @@
       }
       .nav-list.show { display: flex; }
       .nav-list li { margin: 0.5rem 0; text-align: center; }
-
-      .episode-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 1rem;
-        padding-bottom: 1rem;
-      }
-      .episode-card {
-        flex: 0 0 80%;
-        scroll-snap-align: start;
-      }
     }
 
     main { margin-top: 5rem; flex: 1; padding: 2rem; }
