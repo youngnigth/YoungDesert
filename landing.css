@@ -23,7 +23,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 section { padding: 4rem 2rem; }
 .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 0.8s forwards; }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); }}
-.hero { height: 100vh; background: url('images/book-hero.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+.hero { height: 100vh; background: url('images/8.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
 .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
 .hero-content h1 { font-size: 3rem; margin-bottom: 1rem; }
 .hero-content p { font-size: 1.2rem; margin-bottom: 1rem; }
