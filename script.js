@@ -2,30 +2,54 @@
 window.addEventListener('DOMContentLoaded', () => {
   // Mobile navigation toggle
   const navToggle = document.getElementById('nav-toggle');
-  const navList = document.getElementById('nav-list');
+  const navList   = document.getElementById('nav-list');
+
+  // Ensure proper ARIA on load
+  navToggle.setAttribute('aria-expanded', 'false');
+
   navToggle.addEventListener('click', () => {
-    navList.classList.toggle('show');
+    const isOpen = navList.classList.toggle('show');
+    navToggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Smooth scroll for anchor links
-  const links = document.querySelectorAll('a[href^="#"]');
-  links.forEach(link => {
+  // Smooth scroll for anchor links & auto-close menu
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-      // Close mobile menu after click
-      navList.classList.remove('show');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Close mobile menu
+      if (navList.classList.contains('show')) {
+        navList.classList.remove('show');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
     });
   });
 
+  // Auto-close menu on any scroll (up or down)
+  let isTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        if (navList.classList.contains('show')) {
+          navList.classList.remove('show');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  });
+
   // Web3Forms form submission (Option A)
-  const form = document.getElementById('contact-form');
+  const form      = document.getElementById('contact-form');
   const submitBtn = form.querySelector('button[type="submit"]');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    submitBtn.disabled = true;
+    submitBtn.disabled   = true;
     submitBtn.textContent = 'Sending...';
 
     const formData = new FormData(form);
@@ -49,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
       console.error('Network error:', error);
       alert('⚠️ Network error. Please check your connection and try again.');
     } finally {
-      submitBtn.disabled = false;
+      submitBtn.disabled   = false;
       submitBtn.textContent = 'Send Message';
     }
   });
