@@ -174,6 +174,93 @@
       margin-bottom: 1rem;
     }
 
+
+    /* ——— Redesigned Communities Section ——— */
+#communities {
+  background: var(--card-bg);
+  padding: 4rem 2rem;
+}
+
+#communities h2 {
+  color: var(--accent);
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+#communities h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.community-grid .info-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.community-grid .info-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.community-grid .info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+}
+
+.community-grid .info-card:hover img {
+  transform: scale(1.1);
+}
+
+.community-grid .info-card .info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.community-grid .info-card .info h3 {
+  margin: 0 0 0.5rem;
+}
+
+.community-grid .info-card .info p {
+  margin: 0 0 1rem;
+  color: var(--light);
+}
+
+.community-grid .info-card .btn {
+  background: var(--primary);
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  align-self: flex-start;
+  transition: background 0.3s ease;
+}
+.community-grid .info-card .btn:hover {
+  background: var(--accent);
+}
+
+
+
     /* Buttons */
     .btn {
       background: var(--primary);
@@ -223,6 +310,66 @@
       width: 100%;
       margin-top: 1rem;
       font-size: 0.8rem;
+    }
+
+
+    
+    /* ——— Modal Styles ——— */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 200;
+    }
+    .modal-overlay.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal {
+      background: var(--light);
+      color: var(--dark);
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+    .modal h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    .modal p {
+      margin-bottom: 1.5rem;
+      color: var(--muted);
+    }
+    .modal input[type="email"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--muted);
+      border-radius: 4px;
+    }
+    .modal button.btn {
+      width: 100%;
+      padding: 0.75rem;
     }
 
     /* Mobile */
@@ -343,42 +490,46 @@
   </section>
 
   <section id="communities">
-    <h2>Join Our Communities</h2>
-    <div class="community-grid">
-      <div class="info-card">
-        <img src="discord-thumb.jpg" alt="Discord Community Thumbnail" />
-        <div class="info">
-          <h3>Discord</h3>
-          <p>Chat live with our community for setups, tips, and support.</p>
-          <a href="https://discord.gg/YourServer" class="btn">Join Discord</a>
-        </div>
-      </div>
-      <div class="info-card">
-        <img src="patreon-thumb.jpg" alt="Patreon Community Thumbnail" />
-        <div class="info">
-          <h3>Patreon</h3>
-          <p>Support us and unlock exclusive ProTrader content.</p>
-          <a href="https://patreon.com/YourPage" class="btn">Visit Patreon</a>
-        </div>
-      </div>
-      <div class="info-card">
-        <img src="youtube-thumb.jpg" alt="YouTube Channel Thumbnail" />
-        <div class="info">
-          <h3>YouTube</h3>
-          <p>Subscribe for our latest free video tutorials and livestreams.</p>
-          <a href="https://www.youtube.com/@TheYoungDesert" class="btn">Subscribe</a>
-        </div>
-      </div>
-      <div class="info-card">
-        <img src="twitch-thumb.jpg" alt="Twitch Stream Thumbnail" />
-        <div class="info">
-          <h3>Twitch</h3>
-          <p>Watch us trade live and ask questions in real-time.</p>
-          <a href="https://twitch.tv/YourChannel" class="btn">Follow on Twitch</a>
-        </div>
+  <h2>Connect with Our Community</h2>
+  <div class="community-grid">
+    <div class="info-card">
+      <img src="icons8-discord.svg" alt="Discord Community">
+      <div class="info">
+        <h3>Discord</h3>
+        <p>Join live discussions for setups, strategies, and real‑time support.</p>
+        <a href="https://discord.gg/YourServer" class="btn">Join Discord</a>
       </div>
     </div>
-  </section>
+
+    <div class="info-card">
+      <img src="icons8-patreon.svg" alt="Patreon Community">
+      <div class="info">
+        <h3>Patreon</h3>
+        <p>Support our work and unlock exclusive ProTrader insights.</p>
+        <a href="https://patreon.com/YourPage" class="btn">Visit Patreon</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <img src="icons8-youtube.svg" alt="YouTube Channel">
+      <div class="info">
+        <h3>YouTube</h3>
+        <p>Subscribe for free tutorials, deep dives, and livestreams.</p>
+        <a href="https://youtube.com/YourChannel" class="btn">Subscribe</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <img src="icons8-twitch.svg" alt="Twitch Stream">
+      <div class="info">
+        <h3>Twitch</h3>
+        <p>Watch us trade live—ask questions and learn in real time.</p>
+        <a href="https://twitch.tv/YourChannel" class="btn">Follow on Twitch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <section id="contact">
     <h2>Contact Us</h2>
@@ -387,7 +538,7 @@
         <div class="info">
           <h3>Email Support</h3>
           <p>Drop us a line anytime; we usually respond within 24 hours.</p>
-          <a href="mailto:info@youngtraderfa.com" class="btn">Email Us</a>
+          <a href="mailto:youngdesert01@gmail.com" class="btn">Email Us</a>
         </div>
       </div>
       <div class="info-card">
@@ -422,6 +573,54 @@
       <div class="footer-copy">&copy; 2025 Young Trader Futures Academy. All rights reserved.</div>
     </div>
   </footer>
+
+<!-- ——— Subscribe Modal ——— -->
+<div class="modal-overlay" id="subscribe-modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <h2>Join Our Free Newsletter</h2>
+    <p>Get the latest ES Futures tutorials delivered straight to your inbox—for free!</p>
+
+    <!-- Web3Forms‑powered form -->
+    <form
+      id="subscribe-form"
+      action="https://api.web3forms.com/submit"
+      method="POST"
+    >
+      <!-- REQUIRED: your access key from Web3Forms -->
+      <input
+        type="hidden"
+        name="access_key"
+        value="3a7e0042-9451-4644-bf29-1d9806ff8254"
+      />
+
+      <!-- OPTIONAL: set email subject -->
+      <input
+        type="hidden"
+        name="subject"
+        value="New Newsletter Signup"
+      />
+
+      <!-- OPTIONAL: redirect after success -->
+      <input
+        type="hidden"
+        name="redirect"
+        value="https://yourdomain.com/thank-you"
+      />
+
+      <!-- the only visible field: -->
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+      />
+
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+
+  </div>
+</div>
 
   <script>
     const toggle = document.querySelector('.nav-toggle');
@@ -459,6 +658,56 @@
       }
     });
   </script>
+
+<!-- ——— Web3Forms Submission Script ——— -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal    = document.getElementById('subscribe-modal');
+    const closeBtn = document.getElementById('modal-close');
+    const form     = document.getElementById('subscribe-form');
+
+    // show modal after 1s
+    setTimeout(() => modal.classList.add('show'), 1000);
+
+    // close handlers
+    closeBtn.addEventListener('click', () => modal.classList.remove('show'));
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.remove('show');
+    });
+
+    // Web3Forms submit
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      // <-- hide the modal immediately on submit: -->
+      modal.classList.remove('show');
+
+      const fd = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: form.method,
+          headers: { 'Accept': 'application/json' },
+          body: fd
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('Thanks for subscribing! 🎉');
+        } else {
+          throw new Error('Subscription failed');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Oops! Something went wrong.');
+        // if you want to re‑show on error, uncomment:
+        // modal.classList.add('show');
+      }
+
+      // optionally clear form for next time
+      form.reset();
+    });
+  });
+</script>
+
 
 </body>
 </html>
