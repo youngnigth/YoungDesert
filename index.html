@@ -70,6 +70,34 @@
     <p>&copy; 2025 YoungDesert. All rights reserved.</p>
   </footer>
 
+  <!-- Subscribe & Download Modal -->
+  <div id="pdfModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Get Your Free PDF</h2>
+      <form id="subscribe-form">
+        <!-- replace with your Web3Forms access key if you want real integration -->
+        <input type="hidden" name="access_key" value="3a7e0042-9451-4644-bf29-1d9806ff8254" />
+        <input
+          type="email"
+          id="subscribe-email"
+          name="email"
+          placeholder="Your email address"
+          required
+        />
+        <button type="submit" class="btn">Subscribe & Download</button>
+      </form>
+      <div id="download-section" style="display: none;">
+        <p>Thanks for subscribing!  
+           <a id="download-link" href="pdf/A-Complete-Guide-to-ES-Mini-Futures-for-Beginners.pdf" download>
+             Click here to download your PDF
+           </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
   <script src="script.js"></script>
 </body>
 </html>
