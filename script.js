@@ -77,4 +77,44 @@ window.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = 'Send Message';
     }
   });
+
+// **Modal** logic:
+  const modal           = document.getElementById('pdfModal');
+  const closeBtn        = modal.querySelector('.close-button');
+  const subscribeForm   = document.getElementById('subscribe-form');
+  const downloadSection = document.getElementById('download-section');
+
+  // 1) Show modal shortly after load
+  setTimeout(() => modal.classList.add('show'), 500);
+
+  // 2) Close handlers
+  closeBtn.addEventListener('click', () => modal.classList.remove('show'));
+  window.addEventListener('click', e => {
+    if (e.target === modal) modal.classList.remove('show');
+  });
+
+  // 3) Subscription form submit
+  subscribeForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const formData = new FormData(subscribeForm);
+
+    try {
+      // if you want real data capture, send to Web3Forms:
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const json = await res.json();
+      if (json.success) {
+        // hide form, show download link
+        subscribeForm.style.display   = 'none';
+        downloadSection.style.display = 'block';
+      } else {
+        alert('Oops, something went wrong. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Network error. Please try later.');
+    }
+  });
 });
